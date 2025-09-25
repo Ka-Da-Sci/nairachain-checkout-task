@@ -1,0 +1,73 @@
+@import "tailwindcss";
+ @custom-variant dark (&:is(.dark *));
+
+/* Dark mode for system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Base variables (light mode defaults) */
+:root {
+  --background-primary: #ffffff;
+  --background-secondary: #d9d9d9;
+  --background-card-primary: #F5FCFF;
+  --hero-section-background-primary: #F5FCFF;
+  --foreground-primary: #171717;
+  --foreground-sub-primary: #000000;
+  --foreground-secondary: #282938;
+  --foreground-sub-secondary: #505050;
+  --foreground-secondary-span: #5E3BEE;
+  --foreground-tertiary: #1C1E53;
+}
+
+/* Map variables to Tailwind theme (custom properties only) */
+@theme inline {
+  --color-background-primary: var(--background-primary);
+  --color-background-card-primary: var(--color-background-card-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-hero-section-background-primary: var(--hero-section-background-primary);
+  --color-foreground-primary: var(--foreground-primary);
+  --color-foreground-sub-primary: var(--foreground-sub-primary);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-sub-secondary: var(--foreground-sub-secondary);
+  --color-foreground-secondary-span: var(--foreground-secondary-span);
+  --color-foreground-tertiary: var(--foreground-tertiary);
+  --font-ibm_plex_sans: var(--font-ibm_plex_sans);
+  --font-roboto: var(--font-roboto);
+  --font-oswald: var(--font-oswald);
+  --font-fredoka: var(--font-fredoka);
+  --font-geist: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-inter: var(--font-inter);
+  --font-poppins: var(--font-poppins);
+  --font-montserrat: var(--font-montserrat);
+  --font-trirong: var(--font-trirong);
+  --font-bai_jamjuree: var(--font-bai_jamjuree);
+  --font-space_grotesk: var(--font-space_grotesk);
+}
+
+/* Dark mode for manual toggle */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Apply theme to base styles */
+@layer base {
+  body {
+    @apply bg-background-primary text-foreground-primary font-sans transition-colors duration-300;
+  }
+}
+
+/* Component styles */
+@layer components {
+  .btn {
+    @apply bg-foreground-primary text-background-primary px-4 py-2 rounded-md;
+  }
+  .btn:hover {
+    @apply opacity-80;
+  }
+}
