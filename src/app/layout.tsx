@@ -13,8 +13,8 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Katchie Lab Website",
-  description: "Elem Prosper Kachi portfolio website.",
+  title: "NairaChain Checkout Task",
+  description: "NairaChain checkout task completed by Elem Prosper Kachi.",
 };
 
 export default async function RootLayout({

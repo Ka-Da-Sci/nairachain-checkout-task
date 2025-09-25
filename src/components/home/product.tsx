@@ -12,8 +12,8 @@ const containerVariant = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: index * 0.2,
-      duration: 0.3
+      delay: index * 0.1,
+      duration: 0.3,
     },
   }),
 };
@@ -80,56 +80,58 @@ const Product: FC<{
       <MotionLink
         href="/products-details"
         id="e0cad9090fbfbdcea7034cda9e0dfd29"
-        className="item-container group z-0 h-full flex items-center gap-2 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-3 px-6"
+        className="item-container group z-0 h-full flex items-center gap-10 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-10 px-3 sm:px-6"
       >
         <motion.div
           variants={{
             hidden: { opacity: 0.3 },
-            visible: { opacity: 1, transition: { delay: index * 0.2 } },
+            visible: { opacity: 1, transition: { delay: index * 0.1 } },
           }}
-          className="flex justify-center h-full w-full max-w-[259px] max-h-[193px] py-7 px-1 overflow-hidden"
+          className="flex justify-center h-full w-full max-w-[300px] overflow-hidden"
         >
           <ImageWrapper
-            className="h-auto w-auto max-w-full max-h-full"
+            className="w-fit max-w-full max-h-full"
             sourceUrl={imgSrc}
             alternativeText={altText}
           />
         </motion.div>
-        <p className="item-name sm:self-start antialiased font-bold font-['poppins'] text-sm md:text-lg text-center sm:text-left capitalize text-[#1E1E1E]/85 group-hover:text-[#1E1E1E]">
-          {title}
-        </p>
 
-        <div className="flex justify-between items-center w-full gap-2">
-          <p className="item-price font-bold font-['poppins'] text-left antialiased text-[#1E1E1E]/85 group-hover:text-[#1E1E1E] text-sm sm:text-base md:text-lg lg:text-xl">
-            <span>$</span>
-            <span>{price}</span>
+        <div className="flex justify-center gap-4 flex-col w-full">
+          <p className="item-name sm:self-start antialiased font-bold font-['poppins'] text-sm md:text-lg text-center sm:text-left capitalize text-[#1E1E1E]/85 group-hover:text-[#1E1E1E]">
+            {title}
           </p>
-          <div className="flex justify-center items-center gap-2">
-            <motion.button
-              onClick={handleShowAddToCart}
-              // onMouseEnter={() => setShowAddToCart(true)}
-              className="pseudo-add-to-cart pointer-events-auto cursor-pointer z-10 flex justify-center w-full h-full max-w-6 max-h-6"
-            >
-              <ImageWrapper
-                sourceUrl="/images/add-icon.svg"
-                alternativeText="add-icon"
-              />
-            </motion.button>
-            <motion.button
-              onClick={handleShowDescription}
-              onMouseEnter={() => setShowDescription(true)}
-              onMouseLeave={() => !isClicked && setShowDescription(false)}
-              className="preview-button z-10 pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
-            >
-              <ImageWrapper
-                sourceUrl="/images/preview-icon.svg"
-                alternativeText="preview-icon"
-              />
-            </motion.button>
+
+          <div className="flex justify-between items-center w-full gap-2">
+            <p className="item-price font-bold font-['poppins'] text-left antialiased text-[#1E1E1E]/85 group-hover:text-[#1E1E1E] text-sm sm:text-base md:text-lg lg:text-xl">
+              <span>$</span>
+              <span>{price}</span>
+            </p>
+            <div className="flex justify-center items-center gap-2">
+              <motion.button
+                onClick={handleShowAddToCart}
+                // onMouseEnter={() => setShowAddToCart(true)}
+                className="pseudo-add-to-cart pointer-events-auto cursor-pointer z-10 flex justify-center w-full h-full max-w-6 max-h-6"
+              >
+                <ImageWrapper
+                  sourceUrl="/images/add-icon.svg"
+                  alternativeText="add-icon"
+                />
+              </motion.button>
+              <motion.button
+                onClick={handleShowDescription}
+                onMouseEnter={() => setShowDescription(true)}
+                onMouseLeave={() => !isClicked && setShowDescription(false)}
+                className="preview-button z-10 pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
+              >
+                <ImageWrapper
+                  sourceUrl="/images/preview-icon.svg"
+                  alternativeText="preview-icon"
+                />
+              </motion.button>
+            </div>
           </div>
         </div>
       </MotionLink>
-
 
       <AnimatePresence>
         {showAddToCart && (
