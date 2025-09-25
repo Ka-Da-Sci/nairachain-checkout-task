@@ -57,7 +57,7 @@ const Hero: FC = () => {
         <div ref={h1Ref}>
           {isH1InView && (
             <motion.h1
-              className="max-lg:text-4xl max-md:text-3xl font-space_grotesk font-bold text-left max-md:text-center text-5xl text-foreground-secondary"
+              className="max-lg:text-4xl max-md:text-3xl font-space_grotesk font-bold text-left max-md:text-center text-5xl text-foreground"
               variants={container}
             >
               {splitChars("Your Electronics And Gadgets Accessories Hub")}
@@ -83,7 +83,7 @@ const Hero: FC = () => {
                 whileInView="visible"
                 animate={controls}
                 viewport={{ once: false, amount: 0.5 }}
-                className="max-lg:text-base font-bai_jamjuree font-xl font-semibold text-left max-md:text-center text-foreground-tertiary"
+                className="max-lg:text-base font-bai_jamjuree font-xl font-semibold text-left max-md:text-center text-foreground-secondary"
               >
                 {splitChars(
                   "Forem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
@@ -100,32 +100,6 @@ const Hero: FC = () => {
           sourceUrl={photo.src}
           alternativeText={"electrocis gadget"}
         />
-
-        {/* <motion.div
-          variants={{
-            hidden: { backgroundColor: "#D9D9D9" },
-            visible: {
-              backgroundColor: [
-                "#D9D9D9",
-                "#CFCFCF",
-                "#EAEAEA",
-                "#D9D9D9",
-                "#CFCFCF",
-                "#CFCFCF",
-                "#D9D9D9",
-                "#EAEAEA",
-                "#D9D9D9",
-                "#D9D9D9",
-              ],
-              transition: {
-                duration: 4,
-                repeat: Infinity,
-                repeatType: "reverse",
-              },
-            },
-          }}
-          className="absolute top-[18%] left-0 h-[82%] w-full rounded-tl-lg rounded-tr-lg rounded-br-[50px] rounded-bl-[50px] max-lg:rounded-[30px] max-sm:rounded-2xl z-0"
-        /> */}
       </div>
     </SectionAnimatedWrapper>
   );

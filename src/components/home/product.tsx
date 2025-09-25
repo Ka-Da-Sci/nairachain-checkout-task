@@ -87,10 +87,10 @@ const Product: FC<{
             hidden: { opacity: 0.3 },
             visible: { opacity: 1, transition: { delay: index * 0.1 } },
           }}
-          className="flex justify-center h-full w-full overflow-hidden"
+          className="flex justify-center h-full w-full min-w-[150px] max-w-[200px] overflow-hidden"
         >
           <ImageWrapper
-            className="w-[180px]"
+            className=""
             sourceUrl={imgSrc}
             alternativeText={altText}
           />
