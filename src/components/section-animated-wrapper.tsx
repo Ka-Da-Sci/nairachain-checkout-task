@@ -29,7 +29,7 @@ const SectionAnimatedWrapper = ({
       transition={{ duration: 0.5 }}
       id={sectionId} className={sectionClassName} ref={ref}>
       <motion.div
-        className={`flex gap-8 items-center font-space_grotesk container mx-auto px-2 sm:px-4 py-12 w-full ${
+        className={`flex gap-8 items-center font-space_grotesk container mx-auto px-4 py-12 w-full ${
           classNamePlus ?? ""
         }`}
       >
