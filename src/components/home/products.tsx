@@ -111,14 +111,14 @@ const Products = () => {
           hidden: { opacity: 0 },
           visible: { opacity: 1, transition: { duration: 0.3 } },
         }}
-        className="self-start max-sm:self-center grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] max-lg:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] max-sm:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] w-full gap-8 justify-between items-start"
+        className="self-start max-sm:self-center grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] max-lg:grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] max-sm:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] w-full gap-8 justify-between items-start"
       >
         {productsData.map((product, idx) => (
           <Product
             key={`product_${idx}`}
             {...product}
             imgSrc={product.imgSrc.src}
-            index={idx} // Pass index to calculate stagger delay
+            index={idx} 
           />
         ))}
       </motion.ul>

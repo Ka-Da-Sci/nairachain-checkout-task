@@ -41,7 +41,7 @@ const Product: FC<{
   const [showAddToCart, setShowAddToCart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.05 }); // Trigger when 30% of the item is in view
+  const isInView = useInView(ref, { once: false, amount: 0.05 });
 
   useEffect(() => {
     if (!isClicked) return;
@@ -80,14 +80,14 @@ const Product: FC<{
       <MotionLink
         href="/products-details"
         id="e0cad9090fbfbdcea7034cda9e0dfd29"
-        className="item-container group z-0 h-full flex items-center gap-10 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-10 px-3 sm:px-6"
+        className="item-container group z-0 h-full flex items-center gap-12 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-8 px-4"
       >
         <motion.div
           variants={{
             hidden: { opacity: 0.3 },
             visible: { opacity: 1, transition: { delay: index * 0.1 } },
           }}
-          className="flex justify-center h-full w-full max-w-[300px] overflow-hidden"
+          className="flex justify-center h-full w-full max-w-[500px] overflow-hidden"
         >
           <ImageWrapper
             className="w-fit max-w-full max-h-full"
