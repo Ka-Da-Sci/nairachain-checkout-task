@@ -16,6 +16,7 @@ import typeCCharger from "../../../public/images/Type C Charger.png";
 const Products = () => {
   const productsData = [
     {
+      id: "1",
       description:
         "High-quality smart speaker with voice assistant capabilities for seamless integration and control.",
       title: "Amazon Alexa Speakers",
@@ -24,6 +25,7 @@ const Products = () => {
       altText: "amazon-alexa-speakers",
     },
     {
+      id: "2",
       description:
         "Portable speaker with powerful sound and Bluetooth connectivity for an enhanced audio experience.",
       title: "JBL Bluetooth Speaker",
@@ -32,6 +34,7 @@ const Products = () => {
       altText: "jbl-bluetooth-speaker",
     },
     {
+      id: "3",
       description:
         "Premium wireless earbuds with noise cancellation and superior sound quality for immersive listening.",
       title: "Airpod Pro",
@@ -40,6 +43,7 @@ const Products = () => {
       altText: "airpod-pro",
     },
     {
+      id: "4",
       description:
         "High-performance headphones delivering exceptional audio clarity and comfort for extended use.",
       title: "Headphone",
@@ -48,6 +52,7 @@ const Products = () => {
       altText: "headphone",
     },
     {
+      id: "5",
       description:
         "Versatile microphone with wireless connectivity, perfect for karaoke and professional audio recording.",
       title: "Wireless Karaoke Microphone",
@@ -56,6 +61,7 @@ const Products = () => {
       altText: "wireless-karaoke-microphone",
     },
     {
+      id: "6",
       description:
         "Compact and reliable power source for charging devices on the go with high capacity.",
       title: "Portable Powerbank",
@@ -64,6 +70,7 @@ const Products = () => {
       altText: "portable-powerbank",
     },
     {
+      id: "7",
       description:
         "Advanced camera with superior optics for capturing high-quality images and videos.",
       title: "Canon Optic Camera",
@@ -72,6 +79,7 @@ const Products = () => {
       altText: "canon-optic-camera",
     },
     {
+      id: "8",
       description:
         "Fast and efficient charger compatible with USB Type-C devices for quick power-ups.",
       title: "Type C Charger",

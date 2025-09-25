@@ -36,7 +36,8 @@ const Product: FC<{
   imgSrc: string;
   altText: string;
   index: number;
-}> = ({ description, title, imgSrc, altText, index, price }) => {
+  id: string;
+}> = ({ description, title, imgSrc, altText, index, price, id }) => {
   const [showDescription, setShowDescription] = useState(false);
   const [showAddToCart, setShowAddToCart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -70,6 +71,7 @@ const Product: FC<{
 
   return (
     <motion.li
+      id={id}
       ref={ref}
       variants={containerVariant}
       initial="hidden"
@@ -79,7 +81,6 @@ const Product: FC<{
     >
       <MotionLink
         href="/products-details"
-        id="e0cad9090fbfbdcea7034cda9e0dfd29"
         className="item-container group z-0 h-full flex items-center gap-12 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-8 px-4"
       >
         <motion.div
@@ -87,10 +88,9 @@ const Product: FC<{
             hidden: { opacity: 0.3 },
             visible: { opacity: 1, transition: { delay: index * 0.1 } },
           }}
-          className="flex justify-center h-full w-full min-w-[150px] max-w-[200px] overflow-hidden"
+          className="flex justify-center h-full w-[150px] max-w-full overflow-hidden"
         >
           <ImageWrapper
-            className=""
             sourceUrl={imgSrc}
             alternativeText={altText}
           />
@@ -153,7 +153,7 @@ const Product: FC<{
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center flex-col justify-center sm:justify-normal gap-4">
               <div className="quantity-selector flex items-center p-2 rounded bg-[#E9E9E9] text-[#000000]">
                 <button
-                  id="minus"
+                  id={`${id}_minus`}
                   onClick={(event) => event.stopPropagation()}
                   className="decrease bg-gray-200 text-gray-700 font-bold px-4 whitespace-nowrap uppercase font-['Montserrat'] text-sm sm:text-xl"
                 >
@@ -161,14 +161,14 @@ const Product: FC<{
                 </button>
                 <input
                   type="text"
-                  id="quantity"
+                  id={`${id}_quantity`}
                   min="1"
                   step="1"
                   className="w-12 outline-none text-center bg-transparent whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm"
                   onClick={(event) => event.stopPropagation()}
                 />
                 <button
-                  id="plus"
+                  id={`${id}_plus`}
                   onClick={(event) => event.stopPropagation()}
                   className="increase bg-gray-200 text-gray-700 font-bold px-4 whitespace-nowrap uppercase font-['Montserrat'] text-sm sm:text-xl"
                 >
@@ -214,7 +214,7 @@ const Product: FC<{
             <p className="uppercase text-white font-['Poppins'] font-bold text-sm sm:text-base">
               description
             </p>
-            <p id="item-footer-description">{description}</p>
+            <p id={`${id}_item-footer-description`}>{description}</p>
             <CloseBtn
               onClose={(event: MouseEvent) => {
                 event.preventDefault();
