@@ -2,9 +2,11 @@
 
 import { FC, MouseEvent, useEffect, useRef, useState } from "react";
 import ImageWrapper from "../image-wrapper";
-import { AnimatePresence, motion, useInView } from "framer-motion";
-import { X } from "lucide-react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import MotionLink from "../motion-link";
+import CloseBtn from "../closeBtn";
+import AddToCart from "../add-to-cart";
+import ShowDescription from "../show-description";
 
 const containerVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -18,26 +20,17 @@ const containerVariant = {
   }),
 };
 
-const CloseBtn = ({ onClose }: { onClose: (event: MouseEvent) => void }) => {
-  return (
-    <button
-      onClick={onClose}
-      className="hover:scale-110 transition-all duration-500 absolute cursor-pointer right-4 top-4 shadow-xl rounded-full p-1 bg-black group"
-    >
-      <X className="group-hover:scale-125 transition-all duration-500 h-5 w-5 text-white" />
-    </button>
-  );
-};
-
 const Product: FC<{
-  description: string;
-  title: string;
-  price: number;
-  imgSrc: string;
-  altText: string;
+  product: {
+    description: string;
+    title: string;
+    price: number;
+    imgSrc: string;
+    altText: string;
+    id: string;
+  };
   index: number;
-  id: string;
-}> = ({ description, title, imgSrc, altText, index, price, id }) => {
+}> = ({ product, index }) => {
   const [showDescription, setShowDescription] = useState(false);
   const [showAddToCart, setShowAddToCart] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -71,7 +64,7 @@ const Product: FC<{
 
   return (
     <motion.li
-      id={id}
+      id={product.id}
       ref={ref}
       variants={containerVariant}
       initial="hidden"
@@ -80,7 +73,7 @@ const Product: FC<{
       className="w-full h-full relative"
     >
       <MotionLink
-        href="/products-details"
+        href="/product-details"
         className="item-container group z-0 h-full flex items-center gap-12 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-8 px-4"
       >
         <motion.div
@@ -91,20 +84,20 @@ const Product: FC<{
           className="flex justify-center h-full w-[150px] max-w-full overflow-hidden"
         >
           <ImageWrapper
-            sourceUrl={imgSrc}
-            alternativeText={altText}
+            sourceUrl={product.imgSrc}
+            alternativeText={product.altText}
           />
         </motion.div>
 
         <div className="flex justify-center gap-4 flex-col w-full">
           <p className="item-name sm:self-start antialiased font-bold font-['poppins'] text-sm md:text-lg text-center sm:text-left capitalize text-[#1E1E1E]/85 group-hover:text-[#1E1E1E]">
-            {title}
+            {product.title}
           </p>
 
           <div className="flex justify-between items-center w-full gap-2">
             <p className="item-price font-bold font-['poppins'] text-left antialiased text-[#1E1E1E]/85 group-hover:text-[#1E1E1E] text-sm sm:text-base md:text-lg lg:text-xl">
               <span>$</span>
-              <span>{price}</span>
+              <span>{product.price}</span>
             </p>
             <div className="flex justify-center items-center gap-2">
               <motion.button
@@ -135,94 +128,35 @@ const Product: FC<{
 
       <AnimatePresence>
         {showAddToCart && (
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, display: "none" },
-              visible: {
-                opacity: 1,
-                display: "flex",
-                transition: { duration: 1.5 },
-              },
-            }}
-            initial="hidden"
-            exit="hidden"
-            animate="visible"
-            className="add-to-cart-container rounded-xl absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.5)]"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center flex-col justify-center sm:justify-normal gap-4">
-              <div className="quantity-selector flex items-center p-2 rounded bg-[#E9E9E9] text-[#000000]">
-                <button
-                  id={`${id}_minus`}
-                  onClick={(event) => event.stopPropagation()}
-                  className="decrease bg-gray-200 text-gray-700 font-bold px-4 whitespace-nowrap uppercase font-['Montserrat'] text-sm sm:text-xl"
-                >
-                  -
-                </button>
-                <input
-                  type="text"
-                  id={`${id}_quantity`}
-                  min="1"
-                  step="1"
-                  className="w-12 outline-none text-center bg-transparent whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm"
-                  onClick={(event) => event.stopPropagation()}
-                />
-                <button
-                  id={`${id}_plus`}
-                  onClick={(event) => event.stopPropagation()}
-                  className="increase bg-gray-200 text-gray-700 font-bold px-4 whitespace-nowrap uppercase font-['Montserrat'] text-sm sm:text-xl"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                onClick={(event) => event.stopPropagation()}
-                className="add-to-cart bg-orange-500 text-white whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm p-2 pt-[10px] pb-[10px] rounded"
-              >
-                ADD TO CART
-              </button>
-            </div>
-
-            <CloseBtn
-              onClose={(event: MouseEvent) => {
-                event.preventDefault();
-                event.stopPropagation();
-                setShowAddToCart((prev: boolean) => !prev);
-              }}
-            />
-          </motion.div>
+          <AddToCart
+            product={product}
+            CloseBtn={
+              <CloseBtn
+                onClose={(event: MouseEvent) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  setShowAddToCart((prev: boolean) => !prev);
+                }}
+              />
+            }
+          />
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {showDescription && (
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, display: "none" },
-              visible: {
-                opacity: 1,
-                display: "flex",
-                transition: { duration: 1.5 },
-              },
-            }}
-            initial="hidden"
-            exit="hidden"
-            animate="visible"
-            className="preview-text inset-0 transition-all duration-500 rounded-xl absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.8)] gap-3 flex-col items-center justify-center text-white font-['Poppins'] font-normal text-center antialiased text-xs md:text-sm px-2"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <p className="uppercase text-white font-['Poppins'] font-bold text-sm sm:text-base">
-              description
-            </p>
-            <p id={`${id}_item-footer-description`}>{description}</p>
-            <CloseBtn
-              onClose={(event: MouseEvent) => {
-                event.preventDefault();
-                event.stopPropagation();
-                setShowDescription(false);
-              }}
-            />
-          </motion.div>
+          <ShowDescription
+            product={product}
+            CloseBtn={
+              <CloseBtn
+                onClose={(event: MouseEvent) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  setShowDescription(false);
+                }}
+              />
+            }
+          />
         )}
       </AnimatePresence>
     </motion.li>

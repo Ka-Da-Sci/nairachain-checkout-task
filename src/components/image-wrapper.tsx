@@ -10,6 +10,7 @@ const ImageWrapper: FC<{
     <Image
       width={700}
       height={700}
+      priority
       className={`max-w-full max-h-full ${props.className ?? ""}`}
       src={props.sourceUrl}
       alt={props.alternativeText}

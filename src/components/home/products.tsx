@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion"; // Updated to correct import
+import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import SectionAnimatedWrapper from "../section-animated-wrapper";
 import Product from "./product";
@@ -124,9 +124,8 @@ const Products = () => {
         {productsData.map((product, idx) => (
           <Product
             key={`product_${idx}`}
-            {...product}
-            imgSrc={product.imgSrc.src}
-            index={idx} 
+            product={{ ...product, imgSrc: (product.imgSrc as { src: string }).src ?? product.imgSrc }}
+            index={idx}
           />
         ))}
       </motion.ul>
