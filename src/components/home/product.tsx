@@ -108,7 +108,7 @@ const Product: FC<{
                 onClick={handleShowDescription}
                 onMouseEnter={() => setShowDescription(true)}
                 onMouseLeave={() => !isClicked && setShowDescription(false)}
-                className="preview-button pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
+                className="z-30 cursor-pointer preview-button pointer-events-auto flex justify-center w-full h-full max-w-6 max-h-6"
               >
                 <ImageWrapper
                   sourceUrl="/images/preview-icon.svg"

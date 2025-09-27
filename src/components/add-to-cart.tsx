@@ -7,7 +7,7 @@ const AddToCart = ({
   product,
   CloseBtn,
   handleToggleOpenAddToCart,
-  positioning
+  positioning,
 }: {
   product: CartItem;
   handleToggleOpenAddToCart?: (state: boolean) => void;
@@ -21,6 +21,7 @@ const AddToCart = ({
     e.preventDefault();
     console.log(product);
     addToCart({ ...product, quantity });
+    setQuantity(0);
   };
 
   return (
@@ -36,10 +37,18 @@ const AddToCart = ({
       initial="hidden"
       exit="hidden"
       animate="visible"
-      className={`${positioning ? `${positioning} top-0 left-0 bg-[rgba(0,0,0,0.5)]` : ""} rounded-xl w-full h-full`}
+      className={`${
+        positioning ? `${positioning} top-0 left-0 bg-[rgba(0,0,0,0.5)]` : ""
+      } rounded-xl w-full h-full`}
       onClick={(event) => event.stopPropagation()}
     >
-      <motion.div className={`${positioning ? `${positioning} z-30 bottom-4 left-1/2 -translate-x-1/2` : ""} flex items-center flex-col justify-center sm:justify-normal gap-4`}>
+      <motion.div
+        className={`${
+          positioning
+            ? `${positioning} z-30 bottom-4 left-1/2 -translate-x-1/2`
+            : ""
+        } flex items-center flex-col justify-center sm:justify-normal gap-4`}
+      >
         <div className="flex items-center p-2 rounded bg-[#E9E9E9] text-[#000000]">
           <button
             id={`${product.id}_minus`}
@@ -74,16 +83,53 @@ const AddToCart = ({
         </div>
         <motion.button
           variants={{
-            hidden: { scale: 1 },
+            hidden: { backgroundColor: "#7A5CFF", scale: 1 },
             tap: { scale: 1.2, transition: { duration: 1 } },
+            hover: { backgroundColor: "#5e3bee", transition: { duration: 1 } },
+
+            visible: {
+              backgroundColor: [
+                "var(--foreground-secondary-span)",
+                "var(--foreground-secondary-span)",
+                "#9C85FF",
+                "#7A5CFF",
+                "#9C85FF",
+                "#4525C7",
+                "#9C85FF",
+                "#7A5CFF",
+                "var(--foreground-secondary-span)",
+                "var(--foreground-secondary-span)",
+              ],
+              color: [
+                "#FFFFFF",
+                "#FFFFFF",
+                "#F8F9FA",
+                "#FAFAFF",
+                "#F2F2FF",
+                "#BFBFBF",
+                "#F2F2FF",
+                "#FAFAFF",
+                "#FFFFFF",
+                "#FFFFFF",
+              ],
+
+              transition: {
+                duration: 8,
+                repeat: Infinity,
+                repeatType: "reverse",
+              },
+            },
           }}
+          initial="hidden"
+          animate="visible"
           whileTap={"tap"}
+          // whileHover={"hover"}
           onClick={(event) => {
             event.stopPropagation();
             handleAddToCart(event);
             if (handleToggleOpenAddToCart) handleToggleOpenAddToCart(false);
           }}
-          className="add-to-cart pointer-events-auto cursor-pointer bg-orange-500 text-white whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm p-2 pt-[10px] pb-[10px] rounded"
+          className="add-to-cart pointer-events-auto cursor-pointer bg-[#408bfc] text-white whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm p-2 pt-[10px] pb-[10px] rounded"
         >
           <motion.p className="inline-block">ADD TO CART</motion.p>
         </motion.button>
