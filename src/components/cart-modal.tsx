@@ -54,7 +54,7 @@ const CartModal: React.FC = () => {
   const formData = watch();
   const amount = formData.amount;
 
-  // Update amount when cart or discount changes
+  // Update amount when cart changes
   const currentSubtotal = subtotal(Object.values(cartItems));
   if (amount !== total(currentSubtotal, deliveryFee)) {
     setValue("amount", total(currentSubtotal, deliveryFee));

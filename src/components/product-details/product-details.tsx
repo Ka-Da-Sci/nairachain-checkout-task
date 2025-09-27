@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '@/services/api';
 import { productSchema } from '@/lib/zod-schemas';
 import { CartItem } from '@/utils/types';
-import ProductDetailsInnerWrapper from './product-details-wrapper';
+import ProductDetailsInnerWrapper from './product-details-inner-wrapper';
 
 const ProductDetails = () => {
   const params = useParams();

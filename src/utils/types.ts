@@ -1,4 +1,4 @@
-import { checkoutFormSchema } from "@/lib/zod-schemas";
+import { addToCartSchema, checkoutFormSchema } from "@/lib/zod-schemas";
 import z from "zod";
 
 export type CartItem = {
@@ -20,3 +20,6 @@ export type PaymentResponse = {
   amount: number;
   currency: 'USDT' | 'BNB';
 }
+
+export type AddToCartFormData = z.infer<typeof addToCartSchema>;
+

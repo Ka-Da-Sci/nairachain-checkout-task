@@ -1,27 +1,15 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ComponentType, ReactNode, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useCartStore from './store/cart-store';
 import { Plus, Minus } from 'lucide-react';
-import { CartItem } from '@/utils/types';
-
-// Mock API function for adding to cart
-const addToCartApi = async (item: CartItem): Promise<CartItem> => {
-  await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate API delay
-  return item;
-};
-
-// Zod schema for quantity validation
-const addToCartSchema = z.object({
-  quantity: z.number().int().min(1, 'Quantity must be at least 1'),
-});
-
-type AddToCartFormData = z.infer<typeof addToCartSchema>;
+import { AddToCartFormData, CartItem } from '@/utils/types';
+import { addToCartApi } from '@/services/api';
+import { addToCartSchema } from '@/lib/zod-schemas';
 
 const AddToCart = ({
   product,

@@ -2,7 +2,7 @@
 
 import { QRCodeSVG } from 'qrcode.react';
 
-interface PaymentPendingModalProps {
+type PaymentPendingModalProps = {
   qrCodeData: string;
   amount: number;
   currency: 'USDT' | 'BNB';

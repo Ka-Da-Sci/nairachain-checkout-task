@@ -40,7 +40,7 @@ export default async function RootLayout({
 }>) {
   // Read theme from cookie on the server (async)
   const cookieStore = await cookies();
-  console.log(cookieStore.get("theme")?.value);
+  // console.log(cookieStore.get("theme")?.value);
   const themeCookie = cookieStore.get("theme")?.value;
   const themeName = cookieStore.get("theme-name")?.value;
 

@@ -43,3 +43,8 @@ export const checkoutFormSchema = z.object({
     message: "Please select a currency (USDT or BNB)"
   }),
 });
+
+// Zod schema for quantity validation
+export const addToCartSchema = z.object({
+  quantity: z.number().int().min(1, 'Quantity must be at least 1'),
+});

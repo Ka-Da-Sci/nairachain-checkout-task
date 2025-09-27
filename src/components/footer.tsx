@@ -7,15 +7,15 @@ const Footer = () => {
 
         <div className="w-full">
           <nav className="flex justify-center flex-wrap items-center gap-4 pt-2 w-full border-t border-t-foreground-sub-primary border-t-solid">
-            <Link href="/error404">
+            <Link href="/privacy-policy">
               <h1 className="font-bai_jamjuree font-normal text-sm text-foreground-sub-primary">Privacy Policy</h1>
             </Link>
 
-            <Link href="/error404">
+            <Link href="/terms">
               <h1 className="font-bai_jamjuree font-normal text-sm text-foreground-sub-primary">Terms of Service</h1>
             </Link>
 
-            <Link href="/error404">
+            <Link href="/cookies">
               <h1 className="font-bai_jamjuree font-normal text-sm text-foreground-sub-primary">Cookies Settings</h1>
             </Link>
           </nav>
