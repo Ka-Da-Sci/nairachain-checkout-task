@@ -14,10 +14,6 @@ export const queryClient: QueryClient = new QueryClient({
       gcTime: 10 * 60 * 1000, // 10 minutes
       retry: 0,
       staleTime: 5 * 60 * 1000, // 5 minutes
-      // refetchInterval: 10 * 60 * 1000,
-      // placeholderData: (previousData: DatabaseResponseWithStatus) =>
-      //   previousData,
-      // enabled: true,
     },
     mutations: {
       retry: 2,

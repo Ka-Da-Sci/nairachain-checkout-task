@@ -11,13 +11,26 @@ import {
   inter,
 } from "@/styles/fonts";
 import { cookies } from "next/headers";
-import Header from "@/components/header";
 import Footer from "@/components/footer";
 import RootLayoutWrapper from "@/components/root-layout-wrapper";
 
 export const metadata: Metadata = {
-  title: "NairaChain Checkout Task",
+  metadataBase: new URL("https://nairachain-checkout-task.vercel.app"),
+
+  title: {
+    default: "NairaChain Checkout Task",
+    template: "%s | NairaChain Checkout Task",
+  },
   description: "NairaChain checkout task completed by Elem Prosper Kachi.",
+  icons: { icon: "/images/logo-trans.svg" },
+
+  openGraph: {
+    title: "NairaChain Checkout Task",
+    description: "NairaChain checkout task completed by Elem Prosper Kachi.",
+    url: "https://nairachain-checkout-task.vercel.app",
+    siteName: "NairaChain Checkout Task",
+    images: [{ url: "/images/logo-trans.svg" }],
+  },
 };
 
 export default async function RootLayout({
