@@ -7,6 +7,7 @@ import MotionLink from "../motion-link";
 import CloseBtn from "../closeBtn";
 import AddToCart from "../add-to-cart";
 import ShowDescription from "../show-description";
+import { CartItem } from "../store/cart-store";
 
 const containerVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -21,14 +22,7 @@ const containerVariant = {
 };
 
 const Product: FC<{
-  product: {
-    description: string;
-    title: string;
-    price: number;
-    imgSrc: string;
-    altText: string;
-    id: string;
-  };
+  product: CartItem;
   index: number;
 }> = ({ product, index }) => {
   const [showDescription, setShowDescription] = useState(false);
@@ -103,7 +97,7 @@ const Product: FC<{
               <motion.button
                 onClick={handleShowAddToCart}
                 // onMouseEnter={() => setShowAddToCart(true)}
-                className="pseudo-add-to-cart pointer-events-auto cursor-pointer z-10 flex justify-center w-full h-full max-w-6 max-h-6"
+                className="pseudo-add-to-cart pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
               >
                 <ImageWrapper
                   sourceUrl="/images/add-icon.svg"
@@ -114,7 +108,7 @@ const Product: FC<{
                 onClick={handleShowDescription}
                 onMouseEnter={() => setShowDescription(true)}
                 onMouseLeave={() => !isClicked && setShowDescription(false)}
-                className="preview-button z-10 pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
+                className="preview-button pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
               >
                 <ImageWrapper
                   sourceUrl="/images/preview-icon.svg"
@@ -129,7 +123,9 @@ const Product: FC<{
       <AnimatePresence>
         {showAddToCart && (
           <AddToCart
+          positioning="absolute"
             product={product}
+            handleToggleOpenAddToCart={() =>setShowAddToCart((prev: boolean) => !prev)}
             CloseBtn={
               <CloseBtn
                 onClose={(event: MouseEvent) => {

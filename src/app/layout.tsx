@@ -7,10 +7,13 @@ import {
   roboto,
   space_grotesk,
   bai_jamjuree,
+  poppins,
+  inter,
 } from "@/styles/fonts";
 import { cookies } from "next/headers";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import RootLayoutWrapper from "@/components/root-layout-wrapper";
 
 export const metadata: Metadata = {
   title: "NairaChain Checkout Task",
@@ -54,7 +57,7 @@ export default async function RootLayout({
       data-theme={initialTheme}
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable}  ${bai_jamjuree.variable} ${space_grotesk.variable} antialiased font-sans bg-background-primary flex flex-col justify-between items-center w-full h-screen mx-auto overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable}  ${bai_jamjuree.variable} ${space_grotesk.variable}  ${inter.variable} ${poppins.variable} antialiased font-sans bg-background-primary flex flex-col justify-between items-center w-full h-screen mx-auto overflow-x-hidden`}
       >
         <header className="hidden">
           <ThemeToggle
@@ -63,7 +66,7 @@ export default async function RootLayout({
           />
         </header>
         <Header />
-        <main className="w-full">{children}</main>
+        <RootLayoutWrapper>{children}</RootLayoutWrapper>
         <div className="w-full overflow-hidden shrink-0">
           <Footer />
         </div>

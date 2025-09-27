@@ -23,6 +23,7 @@ const Products = () => {
       price: 100,
       imgSrc: amazonAlexaSpeaker,
       altText: "amazon-alexa-speakers",
+      quantity: 50,
     },
     {
       id: "2",
@@ -32,6 +33,7 @@ const Products = () => {
       price: 120,
       imgSrc: jblBluetoothSpeaker,
       altText: "jbl-bluetooth-speaker",
+      quantity: 50,
     },
     {
       id: "3",
@@ -41,6 +43,7 @@ const Products = () => {
       price: 80,
       imgSrc: airpodPro,
       altText: "airpod-pro",
+      quantity: 50,
     },
     {
       id: "4",
@@ -50,6 +53,7 @@ const Products = () => {
       price: 1050,
       imgSrc: headPhone,
       altText: "headphone",
+      quantity: 50,
     },
     {
       id: "5",
@@ -59,6 +63,7 @@ const Products = () => {
       price: 40,
       imgSrc: wirelessMic,
       altText: "wireless-karaoke-microphone",
+      quantity: 50,
     },
     {
       id: "6",
@@ -68,6 +73,7 @@ const Products = () => {
       price: 70,
       imgSrc: portablePowerbank,
       altText: "portable-powerbank",
+      quantity: 50,
     },
     {
       id: "7",
@@ -77,6 +83,7 @@ const Products = () => {
       price: 160,
       imgSrc: canonOpticCamera,
       altText: "canon-optic-camera",
+      quantity: 50,
     },
     {
       id: "8",
@@ -86,6 +93,7 @@ const Products = () => {
       price: 20,
       imgSrc: typeCCharger,
       altText: "type-c-charger",
+      quantity: 50,
     },
   ];
 
@@ -95,7 +103,7 @@ const Products = () => {
   return (
     <SectionAnimatedWrapper
       sectionId="products"
-      sectionClassName={"w-full bg-background-primary"}
+      sectionClassName={"w-full bg-background-primary scroll-mt-10"}
       classNamePlus="flex-col gap-4"
     >
       <div className="flex max-sm:items-center flex-col items-start max-md:justify-center max-md:items-center">

@@ -1,6 +1,6 @@
 "use client";
 
-import Cart from "./cart";
+import CartButton from "./cart-btn";
 import Logo from "./logo";
 // import { motion } from "motion/react";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const Header = () => {
           <Logo />
         </Link>
 
-        <Cart />
+        <CartButton />
       </header>
     </div>
   );

@@ -5,6 +5,7 @@ import ImageWrapper from "../image-wrapper";
 import { motion, useInView } from "motion/react";
 import amazonAlexaSpeaker from "../../../public/images/Amazon Alexa Speakers.png";
 import SectionAnimatedWrapper from "../section-animated-wrapper";
+import AddToCart from "../add-to-cart";
 
 const containerVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -39,6 +40,7 @@ const ProductDetailsWrapper = () => {
       "High-quality smart speaker with voice assistant capabilities for seamless integration and control.",
     title: "Amazon Alexa Speakers",
     price: 100,
+    quantity: 60,
     imgSrc: (amazonAlexaSpeaker as { src: string }).src ?? amazonAlexaSpeaker,
     altText: "amazon-alexa-speakers",
   };
@@ -48,7 +50,7 @@ const ProductDetailsWrapper = () => {
       sectionId={`product_${product.id}`}
       sectionClassName="w-full h-full relative pt-20"
     >
-      <motion.li
+      <motion.div
         id={product.id}
         ref={ref}
         variants={containerVariant}
@@ -114,40 +116,14 @@ const ProductDetailsWrapper = () => {
               className="add-to-cart-container flex max-sm:items-center flex-col gap-4 w-full max-w-max"
               onClick={(event) => event.stopPropagation()}
             >
-              <div className="quantity-selector flex items-center p-2 rounded bg-[#E9E9E9] text-[#000000]">
-                <button
-                  id={`${product.id}_minus`}
-                  onClick={(event) => event.stopPropagation()}
-                  className="decrease bg-gray-200 text-gray-700 font-bold px-4 whitespace-nowrap uppercase font-['Montserrat'] text-sm sm:text-xl"
-                >
-                  -
-                </button>
-                <input
-                  type="text"
-                  id={`${product.id}_quantity`}
-                  min="1"
-                  step="1"
-                  className="w-12 outline-none text-center bg-transparent whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm"
-                  onClick={(event) => event.stopPropagation()}
-                />
-                <button
-                  id={`${product.id}_plus`}
-                  onClick={(event) => event.stopPropagation()}
-                  className="increase bg-gray-200 text-gray-700 font-bold px-4 whitespace-nowrap uppercase font-['Montserrat'] text-sm sm:text-xl"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                onClick={(event) => event.stopPropagation()}
-                className="add-to-cart bg-orange-500 text-white whitespace-nowrap uppercase font-semibold font-['Montserrat'] text-xs sm:text-sm p-2 pt-[10px] pb-[10px] rounded"
-              >
-                ADD TO CART
-              </button>
+              <AddToCart
+                product={product}
+              />
+
             </motion.div>
           </div>
         </motion.div>
-      </motion.li>
+      </motion.div>
     </SectionAnimatedWrapper>
   );
 };
