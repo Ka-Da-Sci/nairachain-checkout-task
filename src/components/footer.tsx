@@ -1,8 +1,7 @@
-import { FC } from "react";
 import SectionAnimatedWrapper from "./section-animated-wrapper";
 import Link from "next/link";
 
-const Footer: FC = () => {
+const Footer = () => {
   return (
       <SectionAnimatedWrapper sectionId="footer" sectionClassName="w-full bg-hero-section-background-primary" classNamePlus="px-2 sm:px-4 py-2 flex-col gap-12 container mx-auto box-border">
 

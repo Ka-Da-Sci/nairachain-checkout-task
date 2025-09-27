@@ -2,7 +2,6 @@
 
 import CartButton from "./cart-btn";
 import Logo from "./logo";
-// import { motion } from "motion/react";
 import Link from "next/link";
 
 

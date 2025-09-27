@@ -1,6 +1,9 @@
+"use client";
+
 import { X, Plus, Minus } from "lucide-react";
 import ImageWrapper from "./image-wrapper";
-import useCartStore, { CartItem as CartItemType } from "./store/cart-store";
+import useCartStore from "./store/cart-store";
+import { CartItem as CartItemType } from "@/utils/types";
 
 interface CartItemProps {
   item: CartItemType;
@@ -13,14 +16,14 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     <li className="item w-full flex items-center md:justify-normal justify-between gap-4 pb-1 transition-all duration-300 ease-in-out">
       <button
         onClick={() => removeItem(item.id)}
-        className="w-40 cursor-pointer group bg-[#fd7171] rounded-full p-1"
+        className="p-1 aspect-square cursor-pointer group bg-[#fd7171] rounded-full"
       >
         <X className="group-hover:scale-125 transition-all duration-500 h-3 w-3 text-white" />
       </button>
       <div className="item-image w-full h-full max-w-8 max-h-8 flex-[0_0_2rem] flex justify-center">
         <ImageWrapper
           className="product-image w-full h-full"
-          sourceUrl={item.imgSrc}
+          sourceUrl={typeof item.imgSrc === "string" ? item.imgSrc : item.imgSrc.src}
           alternativeText={item.title}
         />
       </div>

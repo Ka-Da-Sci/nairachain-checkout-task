@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { FC, MouseEvent, useEffect, useRef, useState } from "react";
-import ImageWrapper from "../image-wrapper";
-import { AnimatePresence, motion, useInView } from "motion/react";
-import MotionLink from "../motion-link";
-import CloseBtn from "../closeBtn";
-import AddToCart from "../add-to-cart";
-import ShowDescription from "../show-description";
-import { CartItem } from "../store/cart-store";
+import { FC, MouseEvent, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
+import ImageWrapper from '../image-wrapper';
+import MotionLink from '../motion-link';
+import CloseBtn from '../closeBtn';
+import AddToCart from '../add-to-cart';
+import ShowDescription from '../show-description';
+import { CartItem } from '@/utils/types';
 
 const containerVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -62,12 +62,12 @@ const Product: FC<{
       ref={ref}
       variants={containerVariant}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={isInView ? 'visible' : 'hidden'}
       custom={index}
       className="w-full h-full relative"
     >
       <MotionLink
-        href="/product-details"
+        href={`/products/${product.id}`}
         className="item-container group z-0 h-full flex items-center gap-12 flex-col border border-solid border-[#1E1E1E4D] hover:[box-shadow:0px_4px_30px_0px_#00000033] transition-all duration-500 rounded-xl py-8 px-4"
       >
         <motion.div
@@ -78,7 +78,7 @@ const Product: FC<{
           className="flex justify-center h-full w-[150px] max-w-full overflow-hidden"
         >
           <ImageWrapper
-            sourceUrl={product.imgSrc}
+            sourceUrl={typeof product.imgSrc === 'object' ? product.imgSrc.src : product.imgSrc}
             alternativeText={product.altText}
           />
         </motion.div>
@@ -96,7 +96,6 @@ const Product: FC<{
             <div className="flex justify-center items-center gap-2">
               <motion.button
                 onClick={handleShowAddToCart}
-                // onMouseEnter={() => setShowAddToCart(true)}
                 className="pseudo-add-to-cart pointer-events-auto cursor-pointer flex justify-center w-full h-full max-w-6 max-h-6"
               >
                 <ImageWrapper
@@ -123,15 +122,15 @@ const Product: FC<{
       <AnimatePresence>
         {showAddToCart && (
           <AddToCart
-          positioning="absolute"
-            product={product}
-            handleToggleOpenAddToCart={() =>setShowAddToCart((prev: boolean) => !prev)}
+            positioning="absolute"
+            product={{ ...product, quantity: 0 }} // Ensure quantity is initialized
+            handleToggleOpenAddToCart={setShowAddToCart}
             CloseBtn={
               <CloseBtn
                 onClose={(event: MouseEvent) => {
                   event.preventDefault();
                   event.stopPropagation();
-                  setShowAddToCart((prev: boolean) => !prev);
+                  setShowAddToCart(false);
                 }}
               />
             }

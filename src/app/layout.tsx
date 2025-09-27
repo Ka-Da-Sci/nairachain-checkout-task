@@ -65,7 +65,6 @@ export default async function RootLayout({
             initialThemename={initialThemename}
           />
         </header>
-        <Header />
         <RootLayoutWrapper>{children}</RootLayoutWrapper>
         <div className="w-full overflow-hidden shrink-0">
           <Footer />
