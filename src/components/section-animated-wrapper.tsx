@@ -3,6 +3,8 @@
 import { ReactNode, useRef } from "react";
 import { motion, useInView } from "motion/react";
 
+
+// Animated section wrapper compnent
 const SectionAnimatedWrapper = ({
   children,
   sectionClassName,

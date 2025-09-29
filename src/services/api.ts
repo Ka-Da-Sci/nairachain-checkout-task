@@ -1,6 +1,8 @@
 import { mockProducts } from "./mockdb";
 import { CartItem, PaymentResponse } from "@/utils/types";
 
+
+// Mock API function for fetching products
 export const fetchProducts = async (): Promise<CartItem[]> => {
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API delay
@@ -11,6 +13,8 @@ export const fetchProducts = async (): Promise<CartItem[]> => {
   }
 };
 
+
+// Mock API function for processing payment
 export const processPayment = async ({
   amount,
   currency,

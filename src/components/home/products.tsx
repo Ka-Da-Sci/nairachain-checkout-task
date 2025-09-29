@@ -1,16 +1,23 @@
-'use client';
+"use client";
 
-import { motion } from 'motion/react';
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import SectionAnimatedWrapper from '../section-animated-wrapper';
-import Product from './product';
-import { fetchProducts } from '@/services/api';
-import validateProducts from '@/utils/validate-products';
+import { motion } from "motion/react";
+import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import SectionAnimatedWrapper from "../section-animated-wrapper";
+import Product from "./product";
+import { fetchProducts } from "@/services/api";
+import validateProducts from "@/utils/validate-products";
+import Spinner from "../spinner";
 
+// Main component for rendering the products section
 const Products = () => {
-  const { data: products = [], isLoading, error } = useQuery({
-    queryKey: ['products'],
+  // Fetch products using TanStack Query and validate them
+  const {
+    data: products = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["products"],
     queryFn: async () => {
       const products = await fetchProducts();
       return validateProducts(products);
@@ -20,6 +27,7 @@ const Products = () => {
   const ref = useRef(null);
   // const isInView = useInView(ref, { once: false, amount: 0.05 });
 
+  // Render loading state with spinner
   if (isLoading) {
     return (
       <SectionAnimatedWrapper
@@ -27,6 +35,7 @@ const Products = () => {
         sectionClassName="w-full bg-background-primary scroll-mt-10"
         classNamePlus="flex-col gap-4"
       >
+        {/* Header section with title and subtitle */}
         <div className="flex max-sm:items-center flex-col items-start max-md:justify-center max-md:items-center">
           <div className="flex gap-2 flex-col w-full max-w-[800px] items-center antialiased uppercase text-center text-[#1E1E1E] font-['Montserrat']">
             <h1 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
@@ -40,11 +49,14 @@ const Products = () => {
             </div>
           </div>
         </div>
-        <div className="text-center">Loading products...</div>
+
+        {/* Display spinner during loading */}
+        <Spinner />
       </SectionAnimatedWrapper>
     );
   }
 
+  // Render error state with message
   if (error) {
     return (
       <SectionAnimatedWrapper
@@ -65,12 +77,14 @@ const Products = () => {
             </div>
           </div>
         </div>
-        <div className="text-center text-red-500">Error loading products: {error.message}</div>
+        <div className="text-center text-red-500">
+          Error loading products: {error.message}
+        </div>
       </SectionAnimatedWrapper>
     );
   }
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <SectionAnimatedWrapper
@@ -78,6 +92,7 @@ const Products = () => {
       sectionClassName="w-full bg-background-primary scroll-mt-10"
       classNamePlus="flex-col gap-4"
     >
+      {/* Header section with title and subtitle */}
       <div className="flex max-sm:items-center flex-col items-start max-md:justify-center max-md:items-center">
         <div className="flex gap-2 flex-col w-full max-w-[800px] items-center antialiased uppercase text-center text-[#1E1E1E] font-['Montserrat']">
           <h1 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
@@ -91,6 +106,8 @@ const Products = () => {
           </div>
         </div>
       </div>
+
+      {/* Animated list of products with responsive grid layout */}
       <motion.ul
         ref={ref}
         // initial="hidden"
@@ -101,12 +118,16 @@ const Products = () => {
         }}
         className="self-start max-sm:self-center grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] max-lg:grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] max-sm:grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] w-full gap-8 justify-between items-start"
       >
+        {/* Map through validated products and render Product component */}
         {products.map((product, idx) => (
           <Product
             key={`product_${idx}`}
             product={{
               ...product,
-              imgSrc: typeof product.imgSrc === 'object' ? product.imgSrc.src : product.imgSrc,
+              imgSrc:
+                typeof product.imgSrc === "object"
+                  ? product.imgSrc.src
+                  : product.imgSrc,
             }}
             index={idx}
           />

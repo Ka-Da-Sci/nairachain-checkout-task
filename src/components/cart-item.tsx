@@ -5,14 +5,17 @@ import ImageWrapper from "./image-wrapper";
 import useCartStore from "./store/cart-store";
 import { CartItem as CartItemType } from "@/utils/types";
 
-interface CartItemProps {
+// Props type for the CartItem component
+type CartItemProps = {
   item: CartItemType;
-}
+};
 
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
+// Component to render a single item in the cart
+const CartItem = ({ item }: CartItemProps) => {
   const { updateQuantity, removeItem } = useCartStore();
 
   return (
+    // List item for cart product with animated transitions
     <li className="item w-full flex items-center md:justify-normal justify-between gap-4 pb-1 transition-all duration-300 ease-in-out">
       <button
         onClick={() => removeItem(item.id)}
@@ -23,7 +26,9 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       <div className="item-image w-full h-full max-w-8 max-h-8 flex-[0_0_2rem] flex justify-center">
         <ImageWrapper
           className="product-image w-full h-full"
-          sourceUrl={typeof item.imgSrc === "string" ? item.imgSrc : item.imgSrc.src}
+          sourceUrl={
+            typeof item.imgSrc === "string" ? item.imgSrc : item.imgSrc.src
+          }
           alternativeText={item.title}
         />
       </div>
@@ -32,6 +37,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           {item.title}
         </h2>
       </div>
+
+      {/* Quantity selector with increment and decrement buttons */}
       <div className="quantity-selector flex flex-[0_0_120px] py-0 px-1 text-center justify-between rounded-2xl">
         <button
           className="decrement bg-[#888]/80 border-none cursor-pointer aspect-square rounded-full flex items-center justify-center"
@@ -53,6 +60,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           <Plus className="group-hover:scale-125 transition-all duration-500 h-4 w-4 text-white p-0.5 font-poppins font-bold" />
         </button>
       </div>
+
+      {/* Price display for item */}
       <div className="each-item-price w-28 flex justify-start text-xs font-poppins font-medium">
         <p className="unit-price antialiased hidden">${item.price}</p>
         <p>${(item.quantity * item.price).toFixed(2)}</p>

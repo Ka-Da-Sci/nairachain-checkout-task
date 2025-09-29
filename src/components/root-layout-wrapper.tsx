@@ -5,13 +5,16 @@ import { ReactNode } from 'react';
 import useCartStore from './store/cart-store';
 import Header from './header';
 import QueryClientProvider from '@/lib/tanstack-wrapper';
-const CartModal = dynamic(() => import('./cart-modal'), {
+import UtilityHoverCard from './utility-hover-card';
+const CartCheckoutModal = dynamic(() => import('./cart-checkout-modal'), {
   ssr: false,
 });
 
+// Root Layout wrapper component
 const RootLayoutWrapper = ({ children }: { children: ReactNode }) => {
   const {
     isCartModalOpen,
+    showUtilityCardModal
   } = useCartStore();
 
 
@@ -20,7 +23,9 @@ const RootLayoutWrapper = ({ children }: { children: ReactNode }) => {
       <main className="w-full">
         <Header />
         {children}
-        {isCartModalOpen && <CartModal />}
+        {isCartModalOpen && <CartCheckoutModal />}
+      {showUtilityCardModal && <UtilityHoverCard />}
+
       </main>
     </QueryClientProvider>
   );

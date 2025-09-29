@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { ComponentType, ReactNode } from "react";
 
+
+// Component to display product description text.
 const ShowDescription = ({
   product,
   CloseBtn,

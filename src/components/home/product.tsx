@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import { FC, MouseEvent, useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useInView } from 'framer-motion';
-import ImageWrapper from '../image-wrapper';
-import MotionLink from '../motion-link';
-import CloseBtn from '../closeBtn';
-import AddToCart from '../add-to-cart';
-import ShowDescription from '../show-description';
-import { CartItem } from '@/utils/types';
+import { FC, MouseEvent, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import ImageWrapper from "../image-wrapper";
+import MotionLink from "../motion-link";
+import CloseBtn from "../closeBtn";
+import AddToCart from "../add-to-cart";
+import ShowDescription from "../show-description";
+import { CartItem } from "@/utils/types";
 
+// Animation variants for product card entrance
 const containerVariant = {
   hidden: { opacity: 0, y: 20 },
   visible: (index: number) => ({
@@ -21,6 +22,7 @@ const containerVariant = {
   }),
 };
 
+// Component to render a single product card
 const Product: FC<{
   product: CartItem;
   index: number;
@@ -31,6 +33,7 @@ const Product: FC<{
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.05 });
 
+  // Effect to reset isClicked state when description is toggled off
   useEffect(() => {
     if (!isClicked) return;
 
@@ -40,9 +43,11 @@ const Product: FC<{
 
     toggleIsClicked();
 
+    // Cleanup function to ensure proper state reset
     return () => toggleIsClicked();
   }, [isClicked, showDescription]);
 
+  // Handler to show description popup and prevent navigation
   const handleShowDescription = (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -50,6 +55,7 @@ const Product: FC<{
     setShowDescription(true);
   };
 
+  // Handler to show add-to-cart popup and prevent navigation
   const handleShowAddToCart = (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -57,12 +63,13 @@ const Product: FC<{
   };
 
   return (
+    // Animated list item for the product card
     <motion.li
       id={product.id}
       ref={ref}
       variants={containerVariant}
       initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      animate={isInView ? "visible" : "hidden"}
       custom={index}
       className="w-full h-full relative"
     >
@@ -78,7 +85,11 @@ const Product: FC<{
           className="flex justify-center h-full w-[150px] max-w-full overflow-hidden"
         >
           <ImageWrapper
-            sourceUrl={typeof product.imgSrc === 'object' ? product.imgSrc.src : product.imgSrc}
+            sourceUrl={
+              typeof product.imgSrc === "object"
+                ? product.imgSrc.src
+                : product.imgSrc
+            }
             alternativeText={product.altText}
           />
         </motion.div>
@@ -119,6 +130,7 @@ const Product: FC<{
         </div>
       </MotionLink>
 
+      {/* Conditionally render and animate add-to-cart popup */}
       <AnimatePresence>
         {showAddToCart && (
           <AddToCart
@@ -138,6 +150,7 @@ const Product: FC<{
         )}
       </AnimatePresence>
 
+      {/* Conditionally render and animate description popup */}
       <AnimatePresence>
         {showDescription && (
           <ShowDescription

@@ -4,24 +4,26 @@ import Image from "next/image";
 import useCartStore from "./store/cart-store";
 import { useEffect, useState } from "react";
 
+// Component to render the cart button with item count
 const CartButton = () => {
   const { setCartModalOpen, cartItems } = useCartStore();
   const [cartNum, setCartNum] = useState(0);
 
+  // Update cart item count when cartItems change
   useEffect(() => {
-
     const cartQty = Object.keys(cartItems).length;
     setCartNum(cartQty);
-  }, [cartItems])
-
+  }, [cartItems]);
 
   return (
     <div className="search-cart cursor-pointer pointer-events-auto flex gap-6 items-center">
+      {/* Button to open cart modal */}
       <button
         className="cart relative flex justify-center max-w-[100px] max-h-[100px] cursor-pointer pointer-events-auto"
         id="cart-trolley"
         onClick={() => setCartModalOpen(true)}
       >
+        {/* Cart icon container */}
         <div className="w-10 h-10 flex items-center justify-center cursor-pointer pointer-events-auto">
           <Image
             width={100}
@@ -31,6 +33,8 @@ const CartButton = () => {
             alt="cart icon"
           />
         </div>
+
+        {/* Cart item count badge */}
         <div className="counter hover:scale-110 absolute top-1/4 right-0 bg-[#408bfc] rounded-full w-max max-w-[22px] max-h-[22px] aspect-square flex items-center justify-center">
           <p
             id="num-of-items"

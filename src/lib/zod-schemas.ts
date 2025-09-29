@@ -5,7 +5,7 @@ export const productSchema = z.object({
   description: z.string().min(10, 'Description must be at least 10 characters'),
   title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
   price: z.number().positive('Price must be positive').min(0.01, 'Price must be at least 0.01'),
-  imgSrc: z.any(), // Allow StaticImageData or string
+  imgSrc: z.any(),
   altText: z.string().min(1, 'Alt text is required'),
   quantity: z.number().int().min(0, 'Quantity must be non-negative'),
 });
@@ -16,11 +16,10 @@ export const cartItemSchema = z.object({
   description: z.string().min(10, 'Description must be at least 10 characters'),
   title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
   price: z.number().positive('Price must be positive').min(0.01, 'Price must be at least 0.01'),
-  imgSrc: z.any(), // Allow string or StaticImageData
+  imgSrc: z.any(),
   altText: z.string().min(1, 'Alt text is required'),
 });
 
-// Zod schema for form validation
 export const checkoutFormSchema = z.object({
   firstName: z
     .string()
@@ -30,7 +29,7 @@ export const checkoutFormSchema = z.object({
     .string()
     .min(1, "Last name is required")
     .max(50, "Last name is too long"),
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
   address: z
     .string()
     .min(10, "Address must be at least 10 characters")
@@ -44,7 +43,6 @@ export const checkoutFormSchema = z.object({
   }),
 });
 
-// Zod schema for quantity validation
 export const addToCartSchema = z.object({
   quantity: z.number().int().min(1, 'Quantity must be at least 1'),
 });

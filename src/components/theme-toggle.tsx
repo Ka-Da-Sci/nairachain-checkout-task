@@ -3,6 +3,8 @@
 import getCookie from "@/utils/getCookie";
 import { useEffect, useState } from "react";
 
+
+// Dark, system and white theme modes toggle component
 const ThemeToggle = ({
   initialTheme,
   initialThemename,

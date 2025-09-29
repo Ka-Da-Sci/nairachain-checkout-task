@@ -1,6 +1,8 @@
 import { FC } from "react";
 import Image from "next/image";
 
+
+// Component to wrap Next.js Image with consistent sizing and styling
 const ImageWrapper: FC<{
   sourceUrl: string;
   alternativeText: string;

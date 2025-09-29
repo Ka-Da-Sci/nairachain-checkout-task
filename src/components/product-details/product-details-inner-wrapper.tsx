@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import ImageWrapper from '../image-wrapper';
-import { motion, useInView } from 'motion/react';
-import SectionAnimatedWrapper from '../section-animated-wrapper';
-import AddToCart from '../add-to-cart';
-import { CartItem } from '@/utils/types';
+import { useRef } from "react";
+import ImageWrapper from "../image-wrapper";
+import { motion, useInView } from "motion/react";
+import SectionAnimatedWrapper from "../section-animated-wrapper";
+import AddToCart from "../add-to-cart";
+import { CartItem } from "@/utils/types";
 
+// Animation variants for product details entrance
 const containerVariant = {
   hidden: { opacity: 0, y: 20 },
   visible: (index: number) => ({
@@ -19,11 +20,15 @@ const containerVariant = {
   }),
 };
 
-interface ProductDetailsWrapperProps {
+// Props type for the ProductDetailsInnerWrapper component
+type ProductDetailsWrapperProps = {
   product: CartItem;
-}
+};
 
-const ProductDetailsInnerWrapper: React.FC<ProductDetailsWrapperProps> = ({ product }) => {
+// Component to render detailed view of a single product
+const ProductDetailsInnerWrapper = ({
+  product,
+}: ProductDetailsWrapperProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.05 });
 
@@ -37,7 +42,7 @@ const ProductDetailsInnerWrapper: React.FC<ProductDetailsWrapperProps> = ({ prod
         ref={ref}
         variants={containerVariant}
         initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        animate={isInView ? "visible" : "hidden"}
         className="w-full h-full relative bg-[#000000CC] rounded-lg"
       >
         <motion.div className="item-container z-0 h-full flex items-center justify-center gap-12 flex-col sm:flex-row py-8 px-4">
@@ -49,9 +54,14 @@ const ProductDetailsInnerWrapper: React.FC<ProductDetailsWrapperProps> = ({ prod
               }}
               className="shrink-0 flex justify-center w-[250px] max-w-full overflow-hidden p-8 group-hover:scale-110 transition-all duration-1000"
             >
-              <ImageWrapper 
-              sourceUrl={typeof product.imgSrc === 'string' ? product.imgSrc : product.imgSrc.src}
-              alternativeText={product.altText} />
+              <ImageWrapper
+                sourceUrl={
+                  typeof product.imgSrc === "string"
+                    ? product.imgSrc
+                    : product.imgSrc.src
+                }
+                alternativeText={product.altText}
+              />
             </motion.div>
           </div>
 
@@ -62,10 +72,10 @@ const ProductDetailsInnerWrapper: React.FC<ProductDetailsWrapperProps> = ({ prod
 
             <motion.p
               variants={{
-                hidden: { opacity: 0, display: 'none' },
+                hidden: { opacity: 0, display: "none" },
                 visible: {
                   opacity: 1,
-                  display: 'flex',
+                  display: "flex",
                   transition: { duration: 1.5 },
                 },
               }}
@@ -94,9 +104,10 @@ const ProductDetailsInnerWrapper: React.FC<ProductDetailsWrapperProps> = ({ prod
               initial="hidden"
               exit="hidden"
               animate="visible"
-              className="add-to-cart-container flex max-sm:items-center flex-col gap-4 w-full max-w-max"
+              className="add-to-cart-container mt-4 flex max-sm:items-center flex-col gap-4 w-full max-w-max"
               onClick={(event) => event.stopPropagation()}
             >
+              {/* Render add-to-cart button */}
               <AddToCart product={product} />
             </motion.div>
           </div>

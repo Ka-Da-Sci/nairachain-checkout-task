@@ -68,13 +68,7 @@ export const trirong = Trirong({
   weight: ["200","300", "400","500", "600","700", "800","900"],
   subsets: ["latin", "latin-ext"], // Latin and extended Latin for broader language support
   style: "normal"
-})
-
-// export const ui_sans_serif = {
-//   variable: '--font-ui_sans_serif',
-//   style: 'normal',
-//   // No src or subsets needed since it's a system font
-// };
+});
 
 export const fredoka = Fredoka({
   variable: "--font-fredoka",

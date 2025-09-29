@@ -6,6 +6,7 @@ import ImageWrapper from "../image-wrapper";
 import SectionAnimatedWrapper from "../section-animated-wrapper";
 import { motion, useAnimation, useInView } from "motion/react";
 
+// Utility function to split text into individual characters for animation
 const splitChars = (text: string) =>
   text.split("").map((char, i) => (
     <motion.span key={i} variants={charMotion}>
@@ -13,6 +14,7 @@ const splitChars = (text: string) =>
     </motion.span>
   ));
 
+// Animation variants for the container to control staggered character animations
 const container = {
   hidden: { opacity: 1 },
   visible: {
@@ -23,11 +25,13 @@ const container = {
   },
 };
 
+// Animation variants for individual characters
 const charMotion = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
 
+// Hero component for the homepage banner section
 const Hero = () => {
   const h1Ref = useRef(null);
   const isH1InView = useInView(h1Ref, { amount: 0 });
@@ -35,7 +39,9 @@ const Hero = () => {
   const isBottomInView = useInView(bottomRef, { amount: 0 });
   const controls = useAnimation();
 
+  // Effect to replay animations periodically
   useEffect(() => {
+    // Async function to reset and replay animations
     const replay = async () => {
       await controls.start("hidden");
       await controls.start("visible");
@@ -44,6 +50,7 @@ const Hero = () => {
     replay(); // run once
     const interval = setInterval(replay, 10000);
 
+    // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, [controls]);
 
@@ -55,6 +62,7 @@ const Hero = () => {
       }
       classNamePlus="relative overflow-hidden max-md:flex-col-reverse max-md:mt-8 pb-4"
     >
+      {/* Left column for text content */}
       <div className="z-10 pt-10 sm:pt-20 flex max-md:items-center flex-col justify-between gap-4 max-w-[700px] flex-1/2 overflow-clip">
         <div ref={h1Ref}>
           {isH1InView && (
@@ -79,6 +87,7 @@ const Hero = () => {
               }}
               className="flex flex-col max-md:items-center gap-4"
             >
+              {/* Animated description with typing effect */}
               <motion.p
                 variants={container}
                 initial="false"
@@ -96,6 +105,7 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Right column for hero image */}
       <div className="transition-all duration-500 z-0 max-lg:opacity-40 opacity-100 absolute right-0 top-0 max-[375px]:hidden flex self-start justify-center max-w-[3500px] sm:max-w-[500px] p-0">
         <ImageWrapper
           className="relative"

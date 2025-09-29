@@ -9,11 +9,13 @@ import {
   bai_jamjuree,
   poppins,
   inter,
+  montserrat,
 } from "@/styles/fonts";
 import { cookies } from "next/headers";
 import Footer from "@/components/footer";
 import RootLayoutWrapper from "@/components/root-layout-wrapper";
 
+// Define metadata for the application, including SEO and Open Graph data
 export const metadata: Metadata = {
   metadataBase: new URL("https://nairachain-checkout-task.vercel.app"),
 
@@ -33,11 +35,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+// Define metadata for the application, including SEO and Open Graph data
+const RootLayout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   // Read theme from cookie on the server (async)
   const cookieStore = await cookies();
   // console.log(cookieStore.get("theme")?.value);
@@ -70,14 +73,17 @@ export default async function RootLayout({
       data-theme={initialTheme}
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable}  ${bai_jamjuree.variable} ${space_grotesk.variable}  ${inter.variable} ${poppins.variable} antialiased font-sans bg-background-primary flex flex-col justify-between items-center w-full h-screen mx-auto overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable}  ${bai_jamjuree.variable} ${space_grotesk.variable}  ${inter.variable} ${poppins.variable} ${montserrat.variable} antialiased font-sans bg-background-primary flex flex-col justify-between items-center w-full h-screen mx-auto overflow-x-hidden`}
       >
-        <header className="hidden">
+        {/* Hidden header containing the ThemeToggle component as the dark mode styles have not been added though the set up is there. */}
+        <div className="hidden">
           <ThemeToggle
             initialTheme={initialTheme}
             initialThemename={initialThemename}
           />
-        </header>
+        </div>
+
+        {/* Wrap children in RootLayoutWrapper for consistent layout structure */}
         <RootLayoutWrapper>{children}</RootLayoutWrapper>
         <div className="w-full overflow-hidden shrink-0">
           <Footer />
@@ -85,4 +91,6 @@ export default async function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

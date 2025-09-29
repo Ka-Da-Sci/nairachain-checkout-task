@@ -94,8 +94,6 @@
 
 // // export default useCartStore;
 
-
-
 // 'use client';
 
 // import { create } from 'zustand';
@@ -234,21 +232,22 @@
 
 // export default useCartStore;
 
+"use client";
 
-
-'use client';
-
-import { create } from 'zustand';
-import { QueryClient } from '@tanstack/react-query';
-import { CartItem } from '@/utils/types';
-import validateCartItems from '@/utils/validate-cart-items';
-import { cartItemSchema } from '@/lib/zod-schemas';
-
+import { create } from "zustand";
+import { QueryClient } from "@tanstack/react-query";
+import { CartItem } from "@/utils/types";
+import validateCartItems from "@/utils/validate-cart-items";
+import { cartItemSchema } from "@/lib/zod-schemas";
 
 export type CartState = {
   cartItems: Record<string, CartItem>;
   addToCart: (item: CartItem, queryClient?: QueryClient) => void;
-  updateQuantity: (id: string, quantity: number, queryClient?: QueryClient) => void;
+  updateQuantity: (
+    id: string,
+    quantity: number,
+    queryClient?: QueryClient
+  ) => void;
   removeItem: (id: string, queryClient?: QueryClient) => void;
   clearCart: (queryClient?: QueryClient) => void;
   resetCartAfterPayment: (queryClient?: QueryClient) => void;
@@ -266,18 +265,22 @@ export type CartState = {
   subtotal: (currentCartItems: CartItem[]) => number;
   total: (subTotal: number, deliveryFee: number) => number;
   deliveryFee: number;
+  showUtilityCardModal: boolean;
+  setShowUtilityCardModal: (state: boolean) => void;
+  utilityHoverCardProps: { headerText: string; bodyText: string };
+  setUtilityHoverCardProps: (headerText: string, bodyText: string) => void;
 };
 
 const useCartStore = create<CartState>((set, get) => {
   // Initialize cartItems from localStorage with validation
   let initialCartItems: Record<string, CartItem> = {};
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     try {
-      const storedItems = JSON.parse(localStorage.getItem('cartItems') || '{}');
+      const storedItems = JSON.parse(localStorage.getItem("cartItems") || "{}");
       initialCartItems = validateCartItems(storedItems);
     } catch (error) {
-      console.error('Failed to parse cartItems from localStorage:', error);
-      localStorage.removeItem('cartItems');
+      console.error("Failed to parse cartItems from localStorage:", error);
+      localStorage.removeItem("cartItems");
     }
   }
 
@@ -289,15 +292,18 @@ const useCartStore = create<CartState>((set, get) => {
       set((state) => {
         let newCartItems;
         if (validatedItem.quantity > 0) {
-          newCartItems = { ...state.cartItems, [validatedItem.id]: validatedItem };
+          newCartItems = {
+            ...state.cartItems,
+            [validatedItem.id]: validatedItem,
+          };
         } else {
           newCartItems = { ...state.cartItems };
           delete newCartItems[validatedItem.id];
         }
-        localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+        localStorage.setItem("cartItems", JSON.stringify(newCartItems));
         if (queryClient) {
-          queryClient.setQueryData(['cartItems'], newCartItems);
-          queryClient.invalidateQueries({ queryKey: ['cartItems'] });
+          queryClient.setQueryData(["cartItems"], newCartItems);
+          queryClient.invalidateQueries({ queryKey: ["cartItems"] });
         }
         return { cartItems: newCartItems };
       });
@@ -309,10 +315,10 @@ const useCartStore = create<CartState>((set, get) => {
           ...state.cartItems,
           [id]: { ...state.cartItems[id], quantity },
         };
-        localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+        localStorage.setItem("cartItems", JSON.stringify(newCartItems));
         if (queryClient) {
-          queryClient.setQueryData(['cartItems'], newCartItems);
-          queryClient.invalidateQueries({ queryKey: ['cartItems'] });
+          queryClient.setQueryData(["cartItems"], newCartItems);
+          queryClient.invalidateQueries({ queryKey: ["cartItems"] });
         }
         return { cartItems: newCartItems };
       });
@@ -321,28 +327,33 @@ const useCartStore = create<CartState>((set, get) => {
       set((state) => {
         const newCartItems = { ...state.cartItems };
         delete newCartItems[id];
-        localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+        localStorage.setItem("cartItems", JSON.stringify(newCartItems));
         if (queryClient) {
-          queryClient.setQueryData(['cartItems'], newCartItems);
-          queryClient.invalidateQueries({ queryKey: ['cartItems'] });
+          queryClient.setQueryData(["cartItems"], newCartItems);
+          queryClient.invalidateQueries({ queryKey: ["cartItems"] });
         }
         return { cartItems: newCartItems };
       });
     },
     clearCart: (queryClient) => {
       set({ cartItems: {}, discountCode: null, discountAmount: 0 });
-      localStorage.removeItem('cartItems');
+      localStorage.removeItem("cartItems");
       if (queryClient) {
-        queryClient.setQueryData(['cartItems'], {});
-        queryClient.invalidateQueries({ queryKey: ['cartItems'] });
+        queryClient.setQueryData(["cartItems"], {});
+        queryClient.invalidateQueries({ queryKey: ["cartItems"] });
       }
     },
     resetCartAfterPayment: (queryClient) => {
-      set({ cartItems: {}, discountCode: null, discountAmount: 0, isOrderPlacedModalOpen: false });
-      localStorage.removeItem('cartItems');
+      set({
+        cartItems: {},
+        discountCode: null,
+        discountAmount: 0,
+        isOrderPlacedModalOpen: false,
+      });
+      localStorage.removeItem("cartItems");
       if (queryClient) {
-        queryClient.setQueryData(['cartItems'], {});
-        queryClient.invalidateQueries({ queryKey: ['cartItems'] });
+        queryClient.setQueryData(["cartItems"], {});
+        queryClient.invalidateQueries({ queryKey: ["cartItems"] });
       }
     },
     discountCode: null,
@@ -356,7 +367,10 @@ const useCartStore = create<CartState>((set, get) => {
       const discount = discountCodes[code];
       if (discount) {
         const subTotal = get().subtotal(Object.values(get().cartItems));
-        const discountAmount = typeof discount === 'number' && discount < 1 ? subTotal * discount : discount;
+        const discountAmount =
+          typeof discount === "number" && discount < 1
+            ? subTotal * discount
+            : discount;
         set({ discountCode: code, discountAmount });
       } else {
         set({ discountCode: null, discountAmount: 0 });
@@ -365,22 +379,34 @@ const useCartStore = create<CartState>((set, get) => {
     isCartModalOpen: false,
     setCartModalOpen: (isOpen) => set({ isCartModalOpen: isOpen }),
     isOrderPlacedModalOpen: false,
-    setOrderPlacedModalOpen: (isOpen) => set({ isOrderPlacedModalOpen: isOpen }),
+    setOrderPlacedModalOpen: (isOpen) =>
+      set({ isOrderPlacedModalOpen: isOpen }),
     isContactVendorModalOpen: false,
-    setContactVendorModalOpen: (isOpen) => set({ isContactVendorModalOpen: isOpen }),
+    setContactVendorModalOpen: (isOpen) =>
+      set({ isContactVendorModalOpen: isOpen }),
     isViewReceiptModalOpen: false,
-    setViewReceiptModalOpen: (isOpen) => set({ isViewReceiptModalOpen: isOpen }),
+    setViewReceiptModalOpen: (isOpen) =>
+      set({ isViewReceiptModalOpen: isOpen }),
     subtotal: (currentCartItems: CartItem[]): number => {
-      return currentCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      return currentCartItems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
     },
     total: (subTotal: number, deliveryFee: number) => {
       const { discountAmount } = get();
       return Math.max(0, subTotal + deliveryFee - discountAmount);
     },
     deliveryFee: 5,
+    utilityHoverCardProps: { headerText: "", bodyText: "" },
+    setUtilityHoverCardProps: (headerText, bodyText) => {
+      set({ utilityHoverCardProps: { headerText, bodyText } });
+    },
+    showUtilityCardModal: false,
+    setShowUtilityCardModal: (showUtilityCardModal) => {
+      set({ showUtilityCardModal });
+    },
   };
 });
 
 export default useCartStore;
-
-
